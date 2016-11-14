@@ -1,12 +1,12 @@
 # OpenMP-C-Proj
 Principles of Programming Languages
-1.	C	Sequential	Implementation
+#1.	C	Sequential	Implementation
 This	section	present	some	helper	in	subsections	1.1	and	1.2	that	includes	the	implementation	of	the	
 hash	functions	and	some	helper	functions	used	in	the	sequential	implementation.	Subsection	1.3	
 explains	the	sequential	implementation	that	uses	the	helper	functions	and	the	hash	functions,	
 defined	in	subsection	1.1,	1.2.	You	can	compile	this	version	by	simply	writing	make	command	in	
 the	project	directory	.
-1.1 hash.h(declaration),	hash.c	(Implementation)
+#1.1 hash.h(declaration),	hash.c	(Implementation)
 These	files	include	implementation	of	15	hash	functions	given	to	you.	You	do	not	have	to	
 implement	any	hash	functions	in	this	project.	The	following code the header file code that illustrates
 how to use these functions. Note here that HashFunction is a function pointer that can point to any of
@@ -32,13 +32,14 @@ unsigned int hash_mult_900(const char *str);
 #endif
 ```
 
-1.2		word_list.h	(declaration),	word_list.c(Implementation)
+#1.2		word_list.h	(declaration),	word_list.c(Implementation)
 These	files	include little	helper	functions that	are	already	used	in	the	sequential	program	that	is	
 given	to	you.	 create_word_list(const char *path); reads	the	word	list	of	the	dictionary	
 from	the	dictionary	file		(i.e.	path	)	on	disk	and	stores	it	in	word_list struct.
 get_num_words(word_list * wl) returns	the	number	of	words	in	the	dictionary	stored	in	
 word_list struct.	get_word(word_list * wl, size_t index) returns	the	word	at	location	
 index in	the	word	list.
+```
 typedef struct {
 char **words;
 size_t num_words;
@@ -77,10 +78,12 @@ if (!bv) {
  destroy_word_list(wl);
  exit(EXIT_FAILURE);
 }
+```
 • The	code	to	set	the	entries	in	the	bitvector.	
 Here,	there	are	two	nested	for	loops	that	fill	the	bit	vector	(bv)	.	For	each	word	in	the	
 dictionary, each	of	14	hash	functions	stored	in	the	hf array	is	called	and	the	corresponding	
 location	in	the	bit	vector	is	set	to	1.
+```
 /* create the bit vector	entries	*/
 for (i = 0; i < wl_size; i++) {
  for (j = 0; j < num_hf; j++) {
@@ -89,9 +92,11 @@ for (i = 0; i < wl_size; i++) {
  bv[hash] = 1;
  }
 }
+```
 1.3.3
 Having	created	the	bit	vector,	this	sequential	spell	checker	program	takes	a	word	to	check	as	the	1st
 command	line	argument	and	checks	if	the	word	is	spelled	correctly	using	the	created	bit	vector	bv.
+```
 /* do the spell checking */
 misspelled = 0;
 for (j = 0; j < num_hf; j++) {
@@ -100,7 +105,9 @@ for (j = 0; j < num_hf; j++) {
  if (bv[hash] == 0)
  misspelled = 1;
 }
-2.	Parallelization	Task
+```
+
+#2.	Parallelization	Task
 In	this	project,	you are	asked	to	only	exploit loop-level	parallelism in	the	given	sequential	program.	
 You	will	express	loop-level	parallelism	through	OpenMP	pagmas,		i.e. #pragma omp parallel
 variations.	You	are	allowed	to	perform	two loop	level	transformations,	namely loop	interchange	
@@ -121,7 +128,7 @@ to	parallelize	as	many	loops	and	loop	levels	as	you	believe	are	beneficial	to	im
 performance.
 Note	that	all	four	versions	could	be	identical.	Loop-level	parallelism	has	its	overhead,	so	choosing	
 the	right	loop	level(s)	to	parallelize	can	be	crucial	to	achieve	the	best	possible	performance.	
-3.	Project	Template	and	Compilation
+#3.	Project	Template	and	Compilation
 You	are	given	a	project3	student directory	that	contains	the	following	files	
 1. Helper		files	(i.e.	word_list.c,	word_list.h,	hash.c,	hash.h):	DO	NOT	CHANGE	THESE	FILES.
 2. spell_seq.c	:	This	file	contains	the	sequential	implementation	of	spell	checker.	When	you	run	
@@ -141,7 +148,7 @@ loop	level.
 6. spell_t4_fastest.c:	This	file	is	just	a	copy	of	spell_seq.c	with	number	of	threads	set	for	you	as	
 4(using	omp_set_num_threads(4)).		In	this	version,	you	should	implement	a	version	that	
 uses	exactly	4	thread	(already	set	for	you)	and	runs	as	fast	a	possible
-3.	How	to	Get	Started?
+#3.	How	to	Get	Started?
 Compilation
 Generally,	to	compile	a	file	with	openMp,	you	just	need	to	add	–fopenmp	as	an	argument	in	gcc	.	For	
 instance,	spell_t2_singleloop.c	version	could	be	compiled	as	follows.		gcc	spell_t2_singleloop.c	
