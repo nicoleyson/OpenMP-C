@@ -11,6 +11,7 @@ These	files	include	implementation	of	15	hash	functions	given	to	you.	You	do	not
 implement	any	hash	functions	in	this	project.	The	following code the header file code that illustrates
 how to use these functions. Note here that HashFunction is a function pointer that can point to any of
 the 15 functions that follows it in declaration below (e.g. RSHash, JSHash,…, hash_mult_900).
+```
 #ifndef HASH_H
 #define HAS_H
 typedef unsigned int (*HashFunction) (const char *str);
@@ -29,6 +30,8 @@ unsigned int hash_div_899(const char *str);
 unsigned int hash_mult_700(const char *str);
 unsigned int hash_mult_900(const char *str);
 #endif
+```
+
 1.2		word_list.h	(declaration),	word_list.c(Implementation)
 These	files	include little	helper	functions that	are	already	used	in	the	sequential	program	that	is	
 given	to	you.	 create_word_list(const char *path); reads	the	word	list	of	the	dictionary	
